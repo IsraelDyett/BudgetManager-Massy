@@ -1,0 +1,51 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Style the table */
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    /* Style the table headers */
+    .table-custom th {
+        background-color: #808080; /* Header background color */
+        color: #fff; /* Header text color */
+        text-align: left; /* Header text alignment */
+    }
+
+    /* Style the table rows */
+    .table-custom tr {
+        background-color: #c0c0c0; /* Row background color */
+    }
+
+    /* Style the table cells */
+    .table-custom td {
+        padding: 8px; /* Cell padding */
+    }
+
+.textbox {
+    width: 220px;
+    padding: 6px 20px;
+    margin: 2px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}

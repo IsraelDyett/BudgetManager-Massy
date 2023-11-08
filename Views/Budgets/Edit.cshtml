@@ -1,0 +1,209 @@
+﻿@model BudgetManager.Models.Budget
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Budget</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BudgetID" />
+            <div class="form-group">
+                <label asp-for="FinYr" class="control-label"></label>
+                <input asp-for="FinYr" class="form-control" />
+                <span asp-validation-for="FinYr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Yr" class="control-label"></label>
+                <input asp-for="Yr" class="form-control" />
+                <span asp-validation-for="Yr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreNo" class="control-label"></label>
+                <input asp-for="StoreNo" class="form-control" />
+                <span asp-validation-for="StoreNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreName" class="control-label"></label>
+                <input asp-for="StoreName" class="form-control" />
+                <span asp-validation-for="StoreName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeptName" class="control-label"></label>
+                <input asp-for="DeptName" class="form-control" />
+                <span asp-validation-for="DeptName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeptNo" class="control-label"></label>
+                <input asp-for="DeptNo" class="form-control" />
+                <span asp-validation-for="DeptNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MonthNo" class="control-label"></label>
+                <input asp-for="MonthNo" class="form-control" />
+                <span asp-validation-for="MonthNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationalDays" class="control-label"></label>
+                <input asp-for="OperationalDays" class="form-control" />
+                <span asp-validation-for="OperationalDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week1" class="control-label"></label>
+                <input asp-for="Week1" class="form-control" />
+                <span asp-validation-for="Week1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week2" class="control-label"></label>
+                <input asp-for="Week2" class="form-control" />
+                <span asp-validation-for="Week2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week3" class="control-label"></label>
+                <input asp-for="Week3" class="form-control" />
+                <span asp-validation-for="Week3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week4" class="control-label"></label>
+                <input asp-for="Week4" class="form-control" />
+                <span asp-validation-for="Week4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week5" class="control-label"></label>
+                <input asp-for="Week5" class="form-control" />
+                <span asp-validation-for="Week5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week6" class="control-label"></label>
+                <input asp-for="Week6" class="form-control" />
+                <span asp-validation-for="Week6" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DailyGPP" class="control-label"></label>
+                <input asp-for="DailyGPP" class="form-control" />
+                <span asp-validation-for="DailyGPP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalGPP_AC" class="control-label"></label>
+                <input asp-for="TotalGPP_AC" class="form-control" />
+                <span asp-validation-for="TotalGPP_AC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalGPP_YRAC" class="control-label"></label>
+                <input asp-for="TotalGPP_YRAC" class="form-control" />
+                <span asp-validation-for="TotalGPP_YRAC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalGPP_BC" class="control-label"></label>
+                <input asp-for="TotalGPP_BC" class="form-control" />
+                <span asp-validation-for="TotalGPP_BC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalGPP_YRBC" class="control-label"></label>
+                <input asp-for="TotalGPP_YRBC" class="form-control" />
+                <span asp-validation-for="TotalGPP_YRBC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DailyGP" class="control-label"></label>
+                <input asp-for="DailyGP" class="form-control" />
+                <span asp-validation-for="DailyGP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DailySales" class="control-label"></label>
+                <input asp-for="DailySales" class="form-control" />
+                <span asp-validation-for="DailySales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week1GP" class="control-label"></label>
+                <input asp-for="Week1GP" class="form-control" />
+                <span asp-validation-for="Week1GP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week2GP" class="control-label"></label>
+                <input asp-for="Week2GP" class="form-control" />
+                <span asp-validation-for="Week2GP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week3GP" class="control-label"></label>
+                <input asp-for="Week3GP" class="form-control" />
+                <span asp-validation-for="Week3GP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week4GP" class="control-label"></label>
+                <input asp-for="Week4GP" class="form-control" />
+                <span asp-validation-for="Week4GP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week5GP" class="control-label"></label>
+                <input asp-for="Week5GP" class="form-control" />
+                <span asp-validation-for="Week5GP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week6GP" class="control-label"></label>
+                <input asp-for="Week6GP" class="form-control" />
+                <span asp-validation-for="Week6GP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week1Sales" class="control-label"></label>
+                <input asp-for="Week1Sales" class="form-control" />
+                <span asp-validation-for="Week1Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week2Sales" class="control-label"></label>
+                <input asp-for="Week2Sales" class="form-control" />
+                <span asp-validation-for="Week2Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week3Sales" class="control-label"></label>
+                <input asp-for="Week3Sales" class="form-control" />
+                <span asp-validation-for="Week3Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week4Sales" class="control-label"></label>
+                <input asp-for="Week4Sales" class="form-control" />
+                <span asp-validation-for="Week4Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week5Sales" class="control-label"></label>
+                <input asp-for="Week5Sales" class="form-control" />
+                <span asp-validation-for="Week5Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Week6Sales" class="control-label"></label>
+                <input asp-for="Week6Sales" class="form-control" />
+                <span asp-validation-for="Week6Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MonthGP" class="control-label"></label>
+                <input asp-for="MonthGP" class="form-control" />
+                <span asp-validation-for="MonthGP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MonthSales" class="control-label"></label>
+                <input asp-for="MonthSales" class="form-control" />
+                <span asp-validation-for="MonthSales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

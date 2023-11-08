@@ -1,0 +1,313 @@
+﻿@model IEnumerable<BudgetManager.Models.Budget>
+
+@{
+    ViewData["Title"] = "Budgets";
+}
+
+<h1>Budgets</h1>
+
+
+<div class="row">
+    <div class="col-md-9" style="display:flex">
+        <p>
+            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
+            {
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create Budget</button>
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Upload")'">Upload Budget</button>
+                
+            }
+            
+            <form asp-action="GetFlaggedBudgets" style="margin-left: 5px">
+                <button type="submit" class="btn btn-warning">Flagged-Budgets</button>
+            </form>
+        </p>
+    </div>
+
+
+</div>
+
+<br/>
+<div class="col-md-3">
+
+    <form asp-action="ShowSearchResults" class="form-inline float-right">
+
+        <div class="form-group">
+
+            <label for="SearchPhrase" class="control-label">Enter:</label><br/>
+
+            <input name="SearchPhrase" class="textbox" />
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+
+        </div>
+
+    </form>
+
+    
+
+</div>
+
+
+<br>
+<br>
+
+<table class="table table-custom">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FinYr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeptNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationalDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week6)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DailyGPP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalGPP_AC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalGPP_YRAC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalGPP_BC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalGPP_YRBC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DailyGP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DailySales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week1GP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week2GP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week3GP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week4GP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week5GP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week6GP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week1Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week2Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week3Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week4Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week5Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week6Sales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthGP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthSales)
+            </th>
+            
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinYr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeptName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeptNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Month)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationalDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week5)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week6)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DailyGPP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalGPP_AC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalGPP_YRAC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalGPP_BC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalGPP_YRBC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DailyGP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DailySales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week1GP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week2GP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week3GP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week4GP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week5GP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week6GP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week1Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week2Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week3Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week4Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week5Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week6Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthGP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthSales)
+            </td>
+            <td>
+                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
+                {
+                <a asp-action="Edit" asp-route-id="@item.BudgetID" class="btn btn-primary">Edit</a>
+                } 
+            </td>
+            <td>
+
+                <a asp-action="Details" asp-route-id="@item.BudgetID" class="btn btn-success">Details</a>
+            </td>
+            <td>
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.BudgetID" class="btn btn-danger">Delete</a>
+                }
+            </td>
+            <td>
+                    @if (User.IsInRole("SuperAdmin")  || User.IsInRole("Admin"))
+                    {
+                    
+                        <form asp-action="FlagBudget" asp-controller="Budgets" method="post">
+                            <input type="hidden" name="budgetID" value="@item.BudgetID" />
+                            <button type="submit" class="btn btn-warning">Flag</button>
+                        </form>
+                    }
+                        
+                    
+             </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,171 @@
+﻿@model List<BudgetManager.Models.Budget> 
+
+<h1>Preview and Edit Uploaded Budgets</h1>
+
+<form asp-action="SaveToDatabase" method="post">
+    <table class="table">
+        <colgroup>
+            <col style="width: 10%;" /> <!-- Adjust the width as needed -->
+            <col style="width: 10%;" /> <!-- Adjust the width as needed -->
+            <!-- Add similar col elements for other columns -->
+        </colgroup>
+        <thead>
+            <tr>
+                <th>FinYr</th>
+                <th>Yr</th>
+                <th>StoreNo</th>
+                <th>StoreName</th>
+                <th>DeptName</th>
+                <th>DeptNo</th>
+                <th>Month</th>
+                <th>MonthNo</th>
+                <th>OperationalDays</th>
+                <th>Week1</th>
+                <th>Week2</th>
+                <th>Week3</th>
+                <th>Week4</th>
+                <th>Week5</th>
+                <th>Week6</th>
+                <th>DailyGPP</th>
+                <th>TotalGPP_AC</th>
+                <th>TotalGPP_YRAC</th>
+                <th>TotalGPP_BC</th>
+                <th>TotalGPP_YRBC</th>
+                <th>DailyGP</th>
+                <th>DailySales</th>
+                <th>Week1GP</th>
+                <th>Week2GP</th>
+                <th>Week3GP</th>
+                <th>Week4GP</th>
+                <th>Week5GP</th>
+                <th>Week6GP</th>
+                <th>Week1Sales</th>
+                <th>Week2Sales</th>
+                <th>Week3Sales</th>
+                <th>Week4Sales</th>
+                <th>Week5Sales</th>
+                <th>Week6Sales</th>
+                <th>MonthGP</th>
+                <th>MonthSales</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].FinYr" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Yr" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].StoreNo" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].StoreName" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].DeptName" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].DeptNo" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Month" class="form-control" />
+                    </td style="min-width: 100px;">
+                    <td>
+                        <input asp-for="@Model[i].MonthNo" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].OperationalDays" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week1" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week2" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week3" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week4" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week5" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week6" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].DailyGPP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].TotalGPP_AC" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].TotalGPP_YRAC" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].TotalGPP_BC" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].TotalGPP_YRBC" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].DailyGP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].DailySales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week1GP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week2GP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week3GP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week4GP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week5GP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week6GP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week1Sales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week2Sales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week3Sales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week4Sales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week5Sales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].Week6Sales" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for="@Model[i].MonthGP" class="form-control" />
+                    </td>
+                    <td style="min-width: 100px;">
+                        <input asp-for= "@Model[i].MonthSales" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Save to Database</button>
+</form>
+<a asp-action="Upload">Back to Upload</a>

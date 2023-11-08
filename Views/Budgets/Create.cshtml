@@ -1,0 +1,386 @@
+﻿@model BudgetManager.Models.Budget
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Budget</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" >
+                <label asp-for="FinYr" class="control-label" style=" margin:5px"></label>
+                <input asp-for="FinYr" class="form-control" />
+                <span asp-validation-for="FinYr" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Yr" class="control-label" style=" margin:5px"></label>
+                <input asp-for="Yr" class="form-control" />
+                <span asp-validation-for="Yr" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="StoreNo" class="control-label" style="margin:5px"></label>
+                <input asp-for="StoreNo" class="form-control" id="StoreNoInput" />
+                <span asp-validation-for="StoreNo" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="StoreName" class="control-label" style="margin:5px"></label>
+                <input asp-for="StoreName" class="form-control" id="StoreInput" readonly />
+                <span asp-validation-for="StoreName" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="DeptName" class="control-label "style="margin:5px"></label>
+                <input asp-for="DeptName" class="form-control" id="DeptInput" readonly />
+                <span asp-validation-for="DeptName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeptNo" class="control-label"style="margin:5px"></label>
+                <input asp-for="DeptNo" class="form-control" id="DeptNoInput"  />
+                <span asp-validation-for="DeptNo" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Month" class="control-label "style="margin:5px"></label>
+                <input asp-for="Month" class="form-control" id="MonthInput" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="MonthNo" class="control-label "style="margin:5px"></label>
+                <input asp-for="MonthNo" class="form-control" id="MonthNoInput" readonly />
+                <span asp-validation-for="MonthNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationalDays" class="control-label"style="margin:5px"></label>
+                <input asp-for="OperationalDays" class="form-control" />
+                <span asp-validation-for="OperationalDays" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week1" class="control-label "style="margin:5px"></label>
+                <input asp-for="Week1" class="form-control" />
+                <span asp-validation-for="Week1" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week2" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week2" class="form-control" />
+                <span asp-validation-for="Week2" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week3" class="control-label " style="margin:5px"></label>
+                <input asp-for="Week3" class="form-control" />
+                <span asp-validation-for="Week3" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week4" class="control-label " style="margin:5px"></label>
+                <input asp-for="Week4" class="form-control" />
+                <span asp-validation-for="Week4" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week5" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week5" class="form-control" />
+                <span asp-validation-for="Week5" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week6" class="control-label " style="margin:5px"></label>
+                <input asp-for="Week6" class="form-control" />
+                <span asp-validation-for="Week6" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="DailyGPP" class="control-label " style="margin:5px"></label>
+                <input asp-for="DailyGPP" class="form-control" />
+                <span asp-validation-for="DailyGPP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="TotalGPP_AC" class="control-label " style="margin:5px"></label>
+                <input asp-for="TotalGPP_AC" class="form-control" />
+                <span asp-validation-for="TotalGPP_AC" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="TotalGPP_YRAC" class="control-label " style="margin:5px"></label>
+                <input asp-for="TotalGPP_YRAC" class="form-control" />
+                <span asp-validation-for="TotalGPP_YRAC" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="TotalGPP_BC" class="control-label " style="margin:5px"></label>
+                <input asp-for="TotalGPP_BC" class="form-control" />
+                <span asp-validation-for="TotalGPP_BC" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="TotalGPP_YRBC" class="control-label " style="margin:5px"></label>
+                <input asp-for="TotalGPP_YRBC" class="form-control" />
+                <span asp-validation-for="TotalGPP_YRBC" class="text-danger"></span>
+            </div> 
+            <div class="form-group"  >
+                <label asp-for="DailyGP" class="control-label" style="margin:5px"></label>
+                <input asp-for="DailyGP" class="form-control" />
+                <span asp-validation-for="DailyGP" class="text-danger"></span>
+            </div>
+            <div class="form-group"             >
+                <label asp-for="DailySales" class="control-label" style="margin:5px"></label>
+                <input asp-for="DailySales" class="form-control" />
+                <span asp-validation-for="DailySales" class="text-danger"></span>
+            </div>
+            <div class="form-group"             >
+                <label asp-for="Week1GP" class="control-label " style="margin:5px"></label>
+                <input asp-for="Week1GP" class="form-control" />
+                <span asp-validation-for="Week1GP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week2GP" class="control-label " style="margin:5px"></label>
+                <input asp-for="Week2GP" class="form-control" />
+                <span asp-validation-for="Week2GP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week3GP" class="control-label " style="margin:5px"></label>
+                <input asp-for="Week3GP" class="form-control" />
+                <span asp-validation-for="Week3GP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week4GP" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week4GP" class="form-control" />
+                <span asp-validation-for="Week4GP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week5GP" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week5GP" class="form-control" />
+                <span asp-validation-for="Week5GP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week6GP" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week6GP" class="form-control" />
+                <span asp-validation-for="Week6GP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week1Sales" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week1Sales" class="form-control" />
+                <span asp-validation-for="Week1Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week2Sales" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week2Sales" class="form-control" />
+                <span asp-validation-for="Week2Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week3Sales" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week3Sales" class="form-control" />
+                <span asp-validation-for="Week3Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week4Sales" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week4Sales" class="form-control" />
+                <span asp-validation-for="Week4Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week5Sales" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week5Sales" class="form-control" />
+                <span asp-validation-for="Week5Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Week6Sales" class="control-label" style="margin:5px"></label>
+                <input asp-for="Week6Sales" class="form-control" />
+                <span asp-validation-for="Week6Sales" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="MonthGP" class="control-label" style="margin:5px"></label>
+                <input asp-for="MonthGP" class="form-control" />
+                <span asp-validation-for="MonthGP" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="MonthSales" class="control-label" style="margin:5px"></label>
+                <input asp-for="MonthSales" class="form-control" />
+                <span asp-validation-for="MonthSales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Map month names to month numbers
+        const monthNameToNumber = {
+            'January': 1,
+            'February': 2,
+            'March': 3,
+            'April': 3,
+            'May': 3,
+            'June': 1,
+            'July': 2,
+            'Augast': 3,
+            'September': 3,
+            'October': 3,
+            'November': 3,
+            'December': 3,
+        };
+
+        // Handle input change in the Month field
+        $('#MonthInput').on('input', function () {
+            const monthName = $(this).val();
+            const monthNumber = monthNameToNumber[monthName];
+
+            if (monthNumber) {
+                $('#MonthNoInput').val(monthNumber);
+            } else {
+                $('#MonthNoInput').val('');
+            }
+        });
+    </script>
+    <script>
+        // Map department numbers to department names
+        const deptNumberToName = {
+            '1': 'OLD-GROCERY',
+            '2': 'OLD-MEAT',
+            '3': 'OLD-FROZEN FOODS',
+            '4': 'OLD-HEALTH & BEAUTY CARE',
+            '5': 'OLD-PRODUCE',
+            '6': 'OLD-DELI',
+            '7': 'OLD-BAKERY',
+            '8': 'OLD-DAIRY',
+            '9': 'OLD-HAMPER',
+            '11': 'OLD-PHARMACY',
+            '12': 'OLD-PHONE CARDS',
+            '13': 'OLD-GROCERY (FOOD)',
+            '16': 'OLD-GROCERY (NON-FOOD)',
+            '18': 'OLD-MARKETING SMART SHOPPER IT',
+            '19': 'OLD-WRAPPING',
+            '20': 'OLD-STATIONERY',
+            '21': 'OLD-ALCOHOLIC BEVERAGES',
+            '24': 'OLD-HEALTH & BEAUTY CARE',
+            '27': 'OLD-PHARMACEUTICALS',
+            '31': 'OLD-PRESCRIPTION',
+            '34': 'OLD-APPLIANCES',
+            '35': 'OLD-COUPONS',
+            '37': 'OLD-CONSUMER ELECTRONICS',
+            '42': 'OLD-FURNITURE',
+            '47': 'OLD-FLOORING',
+            '49': 'OLD-HOME ESSENTIALS',
+            '51': 'OLD-BOTTLES AND SHELLS',
+            '53': 'OLD-FROZEN FOODS',
+            '57': 'OLD-MEAT',
+            '59': 'OLD-CHILLED PRODUCTS',
+            '62': 'OLD-PRODUCE',
+            '66': 'OLD-DELI',
+            '71': 'OLD-IN-STORE BAKERY',
+            '74': 'OLD-NON-SALE',
+            '76': 'OLD-WRAPPING',
+            '78': 'OLD-CUSTOMER LOYALTY PROGRAM',
+            '81': 'OLD-MERCHANDISING SUPPLIES',
+            '83': 'OLD-PHONE CARDS',
+            '86': 'OLD-HAMPERS',
+            '93': 'OLD-SERVICES',
+            '94': 'OLD-WHITE GOODS DELIVERY CHARG',
+            '95': 'OLD-CMC MEAT',
+            '96': 'OLD-CMC PET MEAT',
+            '97': 'OLD-DONATIONS',
+            '100': 'GROCERY (FOOD)',
+            '200': 'GROCERY (NON-FOOD)',
+            '300': 'DELI',
+            '350': 'BAKERY',
+            '370': 'CPC BAKERY',
+            '400': 'PRODUCE',
+            '450': 'DAIRY & CHILLED PRODUCTS',
+            '500': 'FROZEN FOODS',
+            '550': 'MEATS & SEAFOOD',
+            '600': 'ALCOHOLIC BEVERAGES',
+            '650': 'SNACKS AND CONFECTIONERY',
+            '700': 'HEALTH & BEAUTY CARE',
+            '740': 'PHARMACEUTICAL',
+            '780': 'PHARMACY & PRESCRIPTION',
+            '800': 'GENERAL MERCHANDISE',
+            '820': 'FURNITURE',
+            '840': 'APPLIANCES',
+            '860': 'CONSUMER ELECTRONICS',
+            '875': 'HOME ESSENTIALS',
+            '900': 'BOTTLES AND SHELLS',
+            '905': 'CMC MEAT & SEAFOOD',
+            '910': 'CMC PET MEAT',
+            '915': 'CCK DELI',
+            '925': 'HAMPERS',
+            '930': 'MERCHANDISING SUPPLIES',
+            '935': 'NON-SALE',
+            '945': 'PHONE CARDS',
+            '950': 'SERVICES',
+            '953': 'GOVERNMENT SERVICES',
+            '955': 'DONATIONS',
+            '958': 'DELIVERY GROCERY',
+            '960': 'DELIVERY WHITE GOODS',
+            '963': 'HIRE PURCHASE - ADMIN FEES',
+            '965': 'CUSTOMER LOYALTY PROGRAM',
+            '970': 'PACKAGING SUPPLIES',
+            '975': 'COUPON',
+            '985': 'GIFT CARD SERVICE',
+           
+        };
+
+       
+        $('#DeptNoInput').on('input', function () {
+            const deptNumber = $(this).val();
+            const deptName = deptNumberToName[deptNumber];
+
+            if (deptName) {
+                $('#DeptInput').val(deptName);
+            } else {
+                $('#DeptInput').val('');
+            }
+        });
+    </script>
+    <script>
+        
+        const storeNumberToName = {
+            "201": 'GULF VIEW',
+            "202": 'TRINCITY',
+            "203": 'BRENTWOOD',
+            "204": 'MARABELLA',
+            "205": 'ALYCE GLEN',
+            "206": 'SAN JUAN',
+            "211": 'ST. AUGUSTINE',
+            "212": 'BROADWAY',
+            "214": 'POINT FORTIN',
+            "215": 'EL DORADO',
+            "217": 'WESTMOORINGS',
+            "218": 'DIEGO MARTIN',
+            "220": 'FRENCH STREET',
+            "221": 'ST. ANNS',
+            "222": 'MARAVAL',
+            "223": 'CHAGUANAS',
+            "224": 'RIDGEWOOD',
+            "225": 'MANDALAY',
+            "227": 'GLENCOE',
+            "228": 'MARABELLA',
+            "229": 'CREWS INN',
+            "230": 'MOKA',
+            "231": 'SIPARIA',
+            "232": 'SHOPS OF ARIMA',
+            "233": 'COUVA',
+            "234": 'FREEPORT',
+            "242": 'DISKOMART - SAN JUAN',
+            "243": 'DISKOMART - TUNAPUNA',
+            "245": 'DISKOMART - AROUCA',
+            "999": 'Head Office Host SMS Server',
+            
+        };
+
+        
+        $('#StoreNoInput').on('input', function () {
+            const storeNumber = $(this).val();
+            const storeName = storeNumberToName[storeNumber];
+
+            if (storeName) {
+                $('#StoreInput').val(storeName);
+            } else {
+                $('#StoreInput').val('');
+            }
+        });
+    </script>
+}
