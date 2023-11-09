@@ -81,7 +81,7 @@ app.UseEndpoints(endpoints =>
     pattern: "Budget/UploadBudget",
     defaults: new { controller = "Budget", action = "UploadBudget" }
 );
-
+   
     // Other routes...
 });
 using(var scope = app.Services.CreateScope())

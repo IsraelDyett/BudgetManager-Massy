@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVkZ2V0c1xTaG93U2VhY2hGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/DevelopmentApps/budgetManager/Views/Budgets/SuggestBudgetChanges.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVkZ2V0c1xTdWdnZXN0QnVkZ2V0Q2hhbmdlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/DevelopmentApps/budgetManager/Views/Budgets/Upload.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVkZ2V0c1xVcGxvYWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

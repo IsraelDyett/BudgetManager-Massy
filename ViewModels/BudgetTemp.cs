@@ -42,6 +42,7 @@
         public decimal Week6Sales { get; set; }
         public decimal MonthGP { get; set; }
         public decimal MonthSales { get; set; }
+       
     }
 
 }

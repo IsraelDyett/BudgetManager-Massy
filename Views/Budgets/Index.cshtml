@@ -20,6 +20,15 @@
             <form asp-action="GetFlaggedBudgets" style="margin-left: 5px">
                 <button type="submit" class="btn btn-warning">Flagged-Budgets</button>
             </form>
+            <form asp-action="GetAcceptedBudgets" style="margin-left: 5px">
+                <button type="submit" class="btn btn-warning">Approved Budgets</button>
+            </form>
+            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") )
+            {
+                <form asp-action="GetUnApproved" style="margin-left: 5px">
+                    <button type="submit" class="btn btn-warning">Pending Approval</button>
+                </form>
+            }
         </p>
     </div>
 
@@ -166,6 +175,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -296,17 +306,13 @@
                 }
             </td>
             <td>
-                    @if (User.IsInRole("SuperAdmin")  || User.IsInRole("Admin"))
-                    {
-                    
-                        <form asp-action="FlagBudget" asp-controller="Budgets" method="post">
-                            <input type="hidden" name="budgetID" value="@item.BudgetID" />
-                            <button type="submit" class="btn btn-warning">Flag</button>
-                        </form>
-                    }
-                        
-                    
-             </td>
+              @if ( item.Accepted != true)
+                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") )
+                {
+                        <a asp-action="SuggestBudgetChanges" asp-route-id="@item.BudgetID" class="btn btn-warning">Suggest Changes</a>
+                }
+            </td>
+
         </tr>
 }
     </tbody>

@@ -86,7 +86,7 @@ namespace BudgetManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BudgetID,FinYr,Yr,StoreNo,StoreName,DeptName,DeptNo,Month,MonthNo,OperationalDays,Week1,Week2,Week3,Week4,Week5,Week6,DailyGPP,TotalGPP_AC,TotalGPP_YRAC,TotalGPP_BC,TotalGPP_YRBC,DailyGP,DailySales,Week1GP,Week2GP,Week3GP,Week4GP,Week5GP,Week6GP,Week1Sales,Week2Sales,Week3Sales,Week4Sales,Week5Sales,Week6Sales,MonthGP,MonthSales")] Budget budget)
+        public async Task<IActionResult> Create([Bind("BudgetID,FinYr,Yr,StoreNo,StoreName,DeptName,DeptNo,Month,MonthNo,OperationalDays,Week1,Week2,Week3,Week4,Week5,Week6,DailyGPP,TotalGPP_AC,TotalGPP_YRAC,TotalGPP_BC,TotalGPP_YRBC,DailyGP,DailySales,Week1GP,Week2GP,Week3GP,Week4GP,Week5GP,Week6GP,Week1Sales,Week2Sales,Week3Sales,Week4Sales,Week5Sales,Week6Sales,MonthGP,MonthSales,SuggestedChanges,Accepted")] Budget budget)
         {
             if (ModelState.IsValid)
             {
@@ -144,6 +144,8 @@ namespace BudgetManager.Controllers
             {
                 try
                 {
+                   // budget.SuggestedChanges = "inital";
+                    budget.Accepted = null;
                     _context.Update(budget);
                     await _context.SaveChangesAsync();
                 }
@@ -257,7 +259,8 @@ namespace BudgetManager.Controllers
                         budget.Week6Sales = record.Week6Sales;
                         budget.MonthGP = record.MonthGP;
                         budget.MonthSales = record.MonthSales;
-
+                        budget.SuggestedChanges = "initial";
+                        budget.Accepted = null;
                         budgetList.Add(budget);
 
                        // budget.BudgetID = 0; // You can also set it to null if it's configured as nullable in your model
@@ -334,68 +337,125 @@ namespace BudgetManager.Controllers
 
 
 
-        public async Task AddFlaggedBudget(int budgetID)
-        {
-            // Check if the budget is already flagged
-            if (!_context.Flags.Any(fb => fb.BudgetID == budgetID))
-            {
-                var flaggedBudget = new Flag
-                {
-                    BudgetID = budgetID
-                };
 
-                _context.Flags.Add(flaggedBudget);
+
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public async Task<IActionResult> SuggestBudgetChanges(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var budget = await _context.Budget.FindAsync(id);
+
+            if (budget == null)
+            {
+                return NotFound();
+            }
+
+            return View(budget); // Pass the budget model to the view.
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SuggestBudgetChanges(int id, Budget budget)
+        {
+            using (var context = _context)
+            {
+                var existingBudget = context.Budget.FirstOrDefault(b => b.BudgetID == id);
+
+                if (existingBudget != null) 
+                {
+                    existingBudget.SuggestedChanges = budget.SuggestedChanges;
+                    existingBudget.Accepted = false; 
+                    _context.Update(existingBudget);
+                }
+               
+                await _context.SaveChangesAsync();
+
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptedBudget1(int id, Budget budget)
+        {
+            using (var context = _context)
+            {
+                var existingBudget = context.Budget.FirstOrDefault(b => b.BudgetID == id);
+
+                if (existingBudget != null)
+                {
+                    existingBudget.SuggestedChanges = "";
+                    existingBudget.Accepted = true;
+                }
+                _context.Update(existingBudget);
+                await _context.SaveChangesAsync();
+
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptBudget(int id)
+        {
+            var budget = await _context.Budget.FindAsync(id);
+
+            if (budget != null)
+            {
+                budget.SuggestedChanges = "";
+                budget.Accepted = true;
+                _context.Update(budget);
                 await _context.SaveChangesAsync();
             }
+
+            return RedirectToAction("Index");
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> FlagBudget(int budgetID)
-        {
-            try
-            {
-                await AddFlaggedBudget(budgetID);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Handle the error, perhaps by displaying an error message
-                return RedirectToAction("Index");
-            }
-        }
-
 
         [HttpPost]
-        public async Task<IActionResult> GetFlaggedBudgets()
+        public async Task<IActionResult> GetAcceptedBudgets()
         {
-            
-            var flaggedBudgetIDs = _context.Flags.Select(fb => fb.BudgetID).ToList();
 
             // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
-            var flaggedBudgets = _context.Budget.Where(b => flaggedBudgetIDs.Contains(b.BudgetID)).ToList();
+            var flaggedBudgets = _context.Budget.Where(b => b.Accepted == true).ToList();
 
             return View("Index", flaggedBudgets);
         }
 
 
+
+
+
         [HttpPost]
-        public async Task<IActionResult> DeleteFlaggedBudget(int flaggedID)
+        public async Task<IActionResult> GetFlaggedBudgets()
         {
-            // Find the flagged budget by flaggedID
-            var flaggedBudget = await _context.Flags.FindAsync(flaggedID);
 
-            if (flaggedBudget == null)
-            {
-                // Handle not found
-                return RedirectToAction("Index");
-            }
+            // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
+            var flaggedBudgets = _context.Budget.Where(b => b.Accepted ==false).ToList();
 
-            // Remove the flagged budget from the context and save changes to the database
-            _context.Flags.Remove(flaggedBudget);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Index"); // Redirect back to the list of flagged budgets
+            return View("Index", flaggedBudgets);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> GetUnApproved()
+        {
+
+            // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
+            var flaggedBudgets = _context.Budget.Where(b => b.Accepted == null).ToList();
+
+            return View("Index", flaggedBudgets);
+        }
+
     }
 }

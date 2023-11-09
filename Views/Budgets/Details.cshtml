@@ -6,7 +6,17 @@
 
 <h1>Details</h1>
 
+
 <div>
+    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+    {
+        <form asp-action="AcceptBudget" asp-route-id="@Model?.BudgetID" method="post">
+            <button type="submit" class="btn btn-primary">Accept Budget</button>
+        </form>
+    }
+    
+
+
     <h4>Budget</h4>
     <hr />
     <dl class="row">
@@ -232,6 +242,15 @@
     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
     {
         <a asp-action="Edit" asp-route-id="@Model?.BudgetID">Edit</a> <text> |</text>
+        
+       
+    }
+    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+    {
+        
+        <a asp-action="SuggestBudgetChanges" asp-route-id="@Model?.BudgetID">Suggest Changes</a> <text> |</text>
+
     }
     <a asp-action="Index">Back to List</a>
 </div>
+

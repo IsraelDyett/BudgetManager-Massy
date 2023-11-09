@@ -47,9 +47,10 @@ namespace BudgetManager.Models
                 
             };
 
-            _context.ActionLogs.Add(actionLog);
+           
             try
-            {
+            { 
+                _context.ActionLogs.Add(actionLog);
                  _context.SaveChangesAsync();
             }
             catch
