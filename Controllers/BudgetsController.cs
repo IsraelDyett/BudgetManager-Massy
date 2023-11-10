@@ -25,12 +25,21 @@ namespace BudgetManager.Controllers
             _context = context;
            
             _configuration = configuration;
-         
+
         }
 
         // GET: Budgets
         public async Task<IActionResult> Index()
         {
+            int approvedCount = _context.Budget.Count(b => b.Accepted == true);
+            int unApprovedCount = _context.Budget.Count(b => b.Accepted == null);
+            int flaggedCount = _context.Budget.Count(b => b.Accepted == false);
+
+            // Pass the counts to the view
+            ViewBag.ApprovedBudgetCount = approvedCount;
+            ViewBag.UnApprovedBudgetCount = unApprovedCount;
+            ViewBag.FlaggedBudgetCount = flaggedCount;
+
             return _context.Budget != null ?
                         View(await _context.Budget.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Budget'  is null.");
@@ -259,7 +268,7 @@ namespace BudgetManager.Controllers
                         budget.Week6Sales = record.Week6Sales;
                         budget.MonthGP = record.MonthGP;
                         budget.MonthSales = record.MonthSales;
-                        budget.SuggestedChanges = "initial";
+                        budget.SuggestedChanges = null;
                         budget.Accepted = null;
                         budgetList.Add(budget);
 
@@ -317,6 +326,7 @@ namespace BudgetManager.Controllers
                 {
                     // Handle exceptions as needed
                 }
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -381,27 +391,6 @@ namespace BudgetManager.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin,Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AcceptedBudget1(int id, Budget budget)
-        {
-            using (var context = _context)
-            {
-                var existingBudget = context.Budget.FirstOrDefault(b => b.BudgetID == id);
-
-                if (existingBudget != null)
-                {
-                    existingBudget.SuggestedChanges = "";
-                    existingBudget.Accepted = true;
-                }
-                _context.Update(existingBudget);
-                await _context.SaveChangesAsync();
-
-            }
-            return RedirectToAction("Index");
-        }
-
 
         [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost]
@@ -423,9 +412,18 @@ namespace BudgetManager.Controllers
 
 
 
+
         [HttpPost]
         public async Task<IActionResult> GetAcceptedBudgets()
         {
+            int approvedCount = _context.Budget.Count(b => b.Accepted == true);
+            int unApprovedCount = _context.Budget.Count(b => b.Accepted == null);
+            int flaggedCount = _context.Budget.Count(b => b.Accepted == false);
+
+            // Pass the counts to the view
+            ViewBag.ApprovedBudgetCount = approvedCount;
+            ViewBag.UnApprovedBudgetCount = unApprovedCount;
+            ViewBag.FlaggedBudgetCount = flaggedCount;
 
             // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
             var flaggedBudgets = _context.Budget.Where(b => b.Accepted == true).ToList();
@@ -441,6 +439,15 @@ namespace BudgetManager.Controllers
         public async Task<IActionResult> GetFlaggedBudgets()
         {
 
+            int approvedCount = _context.Budget.Count(b => b.Accepted == true);
+            int unApprovedCount = _context.Budget.Count(b => b.Accepted == null);
+            int flaggedCount = _context.Budget.Count(b => b.Accepted == false);
+
+            // Pass the counts to the view
+            ViewBag.ApprovedBudgetCount = approvedCount;
+            ViewBag.UnApprovedBudgetCount = unApprovedCount;
+            ViewBag.FlaggedBudgetCount = flaggedCount;
+
             // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
             var flaggedBudgets = _context.Budget.Where(b => b.Accepted ==false).ToList();
 
@@ -450,6 +457,15 @@ namespace BudgetManager.Controllers
         [HttpPost]
         public async Task<IActionResult> GetUnApproved()
         {
+
+            int approvedCount = _context.Budget.Count(b => b.Accepted == true);
+            int unApprovedCount = _context.Budget.Count(b => b.Accepted == null);
+            int flaggedCount = _context.Budget.Count(b => b.Accepted == false);
+
+            // Pass the counts to the view
+            ViewBag.ApprovedBudgetCount = approvedCount;
+            ViewBag.UnApprovedBudgetCount = unApprovedCount;
+            ViewBag.FlaggedBudgetCount = flaggedCount;
 
             // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
             var flaggedBudgets = _context.Budget.Where(b => b.Accepted == null).ToList();

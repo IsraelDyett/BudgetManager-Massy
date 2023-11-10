@@ -8,16 +8,15 @@
 
 
 <div>
+    <div style="display:flex">
+    <h4 style="margin-right:10px">Budget</h4> 
     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
     {
         <form asp-action="AcceptBudget" asp-route-id="@Model?.BudgetID" method="post">
-            <button type="submit" class="btn btn-primary">Accept Budget</button>
+                <button type="submit" class="btn btn-danger">Accept Budget</button>
         </form>
     }
-    
-
-
-    <h4>Budget</h4>
+    </div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -239,18 +238,37 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model?.BudgetID">Edit</a> <text> |</text>
-        
-       
-    }
     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
     {
-        
-        <a asp-action="SuggestBudgetChanges" asp-route-id="@Model?.BudgetID">Suggest Changes</a> <text> |</text>
+        <div class="col-md-4" style="display:flex">
+            <form asp-action="SuggestBudgetChanges" asp-route-id="@Model?.BudgetID" style="margin:12px; margin-bottom:10px; justify-content:center; align-content:center">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="BudgetID" />
 
+                <div class="form-group">
+                    <label asp-for="SuggestedChanges" class="control-label"></label>
+                    <textarea asp-for="SuggestedChanges" class="form-control" rows="5" cols="40"></textarea>
+                    <span asp-validation-for="SuggestedChanges" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display:flex; margin:5px;">
+                    <input type="submit" value="Flag Budget" class="btn btn-warning" />
+                   
+                </div>
+            </form>
+            
+            
+        </div> 
+        
+    }
+    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.BudgetID" sstyle="margin-bottom:5px;">Edit</a> <text> |</text>
     }
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

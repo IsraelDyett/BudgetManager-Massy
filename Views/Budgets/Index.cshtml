@@ -3,36 +3,60 @@
 @{
     ViewData["Title"] = "Budgets";
 }
-
+<style>
+    .badge-red {
+        background-color: red;
+        color: white;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 3px 6px;
+        border-radius: 50%;
+    }
+</style>
 <h1>Budgets</h1>
 
 
 <div class="row">
     <div class="col-md-9" style="display:flex">
         <p>
-            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
-            {
+        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
+        {
                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create Budget</button>
                 <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Upload")'">Upload Budget</button>
-                
-            }
-            
-            <form asp-action="GetFlaggedBudgets" style="margin-left: 5px">
-                <button type="submit" class="btn btn-warning">Flagged-Budgets</button>
-            </form>
-            <form asp-action="GetAcceptedBudgets" style="margin-left: 5px">
-                <button type="submit" class="btn btn-warning">Approved Budgets</button>
-            </form>
-            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") )
-            {
-                <form asp-action="GetUnApproved" style="margin-left: 5px">
-                    <button type="submit" class="btn btn-warning">Pending Approval</button>
+
+                <form asp-action="GetAcceptedBudgets" style="margin-left: 5px">
+                    <button type="submit" class="btn btn-danger">
+                        Approved Budgets
+
+                    </button>
                 </form>
-            }
+
+                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                {
+                    <form asp-action="GetUnApproved" style="margin-left: 5px">
+                        <button type="submit" class="btn btn-warning">
+                            Pending Approval
+                           
+                                <span class="badge badge-red">@ViewBag.UnApprovedBudgetCount</span>
+                            
+                        </button>
+                    </form>
+                }
+            
+                <form asp-action="GetFlaggedBudgets" style="margin-left: 5px">
+                    <button type="submit" class="btn btn-warning">Flagged Budgets
+                       
+                            <span class="badge badge-red">@ViewBag.FlaggedBudgetCount</span>
+                        
+                    </button>
+                </form>
+
+        }
+        
         </p>
     </div>
-
-
+    
 </div>
 
 <br/>
@@ -63,6 +87,7 @@
 <table class="table table-custom">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.FinYr)
             </th>
@@ -175,12 +200,21 @@
             <th></th>
             <th></th>
             <th></th>
-            <th></th>
+           
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <form asp-action="AcceptBudget" asp-route-id="@item.BudgetID" method="post">
+                            <button type="submit" class="btn btn-danger">Accept Budget</button>
+                        </form>
+                    }
+                </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.FinYr)
             </td>
@@ -300,16 +334,9 @@
                 <a asp-action="Details" asp-route-id="@item.BudgetID" class="btn btn-success">Details</a>
             </td>
             <td>
-                @if (User.IsInRole("SuperAdmin"))
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                 {
                     <a asp-action="Delete" asp-route-id="@item.BudgetID" class="btn btn-danger">Delete</a>
-                }
-            </td>
-            <td>
-              @if ( item.Accepted != true)
-                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") )
-                {
-                        <a asp-action="SuggestBudgetChanges" asp-route-id="@item.BudgetID" class="btn btn-warning">Suggest Changes</a>
                 }
             </td>
 

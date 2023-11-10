@@ -14,6 +14,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="BudgetID" />
             <div class="form-group">
+                <label asp-for="SuggestedChanges" class="control-label"></label>
+                <textarea asp-for="SuggestedChanges" class="form-control" rows="5" cols="40" readonly></textarea>
+                <span asp-validation-for="SuggestedChanges" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="FinYr" class="control-label"></label>
                 <input asp-for="FinYr" class="form-control" />
                 <span asp-validation-for="FinYr" class="text-danger"></span>
