@@ -387,7 +387,7 @@ namespace BudgetManager.Controllers
                 await _context.SaveChangesAsync();
 
             }
-            return RedirectToAction("Index");
+            return await GetUnApproved();
         }
 
 
@@ -407,7 +407,7 @@ namespace BudgetManager.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Index");
+            return await GetUnApproved();
         }
 
 

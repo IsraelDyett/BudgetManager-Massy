@@ -207,7 +207,7 @@
 @foreach (var item in Model) {
         <tr>
                 <td>
-                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    @if ((User.IsInRole("SuperAdmin") || User.IsInRole("Admin")) && (item.Accepted == null || item.Accepted == false))
                     {
                         <form asp-action="AcceptBudget" asp-route-id="@item.BudgetID" method="post">
                             <button type="submit" class="btn btn-danger">Accept Budget</button>
