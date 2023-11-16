@@ -13,7 +13,60 @@
         padding: 3px 6px;
         border-radius: 50%;
     }
+
+    /* Add a background color for the selected row */
+    tbody tr.selected {
+        background-color: #c3e6cb; /* Use your desired color */
+    }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Add click event to each table row
+         $('tbody tr').click(function () {
+            // Toggle the 'selected' class on the clicked row
+            $(this).toggleClass('selected');
+        });
+
+        // Submit the form when the "Approve Selected Budgets" button is clicked
+        $('#approveSelectedButton').click(function () {
+            updateSelectedBudgetsInput();
+        }); 
+        
+        $('#selectAllCheckbox').click(function () {
+            var isChecked = $(this).prop('checked');
+
+            // Toggle the 'selected' class for all rows in the table based on the checkbox state
+            $('tbody tr').toggleClass('selected', isChecked);
+
+        });
+
+
+    });
+
+    function updateSelectedBudgetsInput() {
+        var selectedBudgetIds = [];
+        $('tbody tr.selected').each(function () {
+            // Extract the BudgetID from the data attribute
+            var budgetID = $(this).data('budget-id');
+            selectedBudgetIds.push(budgetID);
+        });
+
+        // Log the selected budget IDs for debugging
+        console.log("Selected Budget IDs: ", selectedBudgetIds);
+
+        // Update the value of the hidden input with the selected budget IDs
+        $('#SelectedBudgets').val(selectedBudgetIds.join(','));
+
+        // Log the form data for debugging
+        console.log("Form Data: ", $('#approveBudgetsForm').serialize());
+
+        // Submit the form
+        $('#approveBudgetsForm').submit();
+    }
+</script>
+
+
 <h1>Budgets</h1>
 
 
@@ -79,11 +132,19 @@
     
 
 </div>
+<br />
+<br />
 
+<button type="button" id="approveSelectedButton" class="btn btn-primary">Approve Selected Budgets</button>
+<br/>
+<br />
+<input type="checkbox" id="selectAllCheckbox" style="background-color:blue; padding:5px" /> SELECT ALL
 
 <br>
 <br>
-
+<a href="@Url.Action("ExportToExcel")" class="btn btn-info">Export to Excel</a>
+<form asp-controller="Budgets" asp-action="ApproveSelectedBudgets" method="post" id="approveBudgetsForm">
+    <input type="hidden" id="SelectedBudgets" name="SelectedBudgets" />
 <table class="table table-custom">
     <thead>
         <tr>
@@ -205,7 +266,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+
+         <tr class="selectable-row" data-budget-id="@item.BudgetID" id="selectAll">
                 <td>
                     @if ((User.IsInRole("SuperAdmin") || User.IsInRole("Admin")) && (item.Accepted == null || item.Accepted == false))
                     {
@@ -214,7 +276,7 @@
                         </form>
                     }
                 </td>
-
+   
             <td>
                 @Html.DisplayFor(modelItem => item.FinYr)
             </td>
@@ -339,8 +401,12 @@
                     <a asp-action="Delete" asp-route-id="@item.BudgetID" class="btn btn-danger">Delete</a>
                 }
             </td>
+            
 
         </tr>
 }
     </tbody>
-</table>
+ </table>
+</form>
+
+

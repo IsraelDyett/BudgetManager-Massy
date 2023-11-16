@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8XojhE3vO3ReE8np8UKO3cQ2FrLVuh/HTT07P34DNyuQvYHRrLi1LR5yhdCgl0hBm3a4cKEesVFfUlWO7CzPFA==",
+  "dgSpecHash": "bCh91TCDLR1y42+vUSVuXtEZYAh3jJv3zwZXibDEWex+ijvJueX+naJQpwt7pxFoXpBqUKto05PWFY9n3MFnbg==",
   "success": true,
   "projectFilePath": "C:\\DevelopmentApps\\budgetManager\\BudgetManager.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,7 @@
     "C:\\Users\\idyette\\.nuget\\packages\\efcore.bulkextensions\\6.7.16\\efcore.bulkextensions.6.7.16.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\entityframeworkcore.sqlserver.hierarchyid\\3.0.1\\entityframeworkcore.sqlserver.hierarchyid.3.0.1.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\entityframeworkcore.sqlserver.hierarchyid.abstractions\\3.0.1\\entityframeworkcore.sqlserver.hierarchyid.abstractions.3.0.1.nupkg.sha512",
-    "C:\\Users\\idyette\\.nuget\\packages\\epplus\\7.0.0\\epplus.7.0.0.nupkg.sha512",
+    "C:\\Users\\idyette\\.nuget\\packages\\epplus\\7.0.1\\epplus.7.0.1.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\exceldatareader\\3.6.0\\exceldatareader.3.6.0.nupkg.sha512",
@@ -250,7 +250,7 @@
     "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.csp\\4.3.0\\system.security.cryptography.csp.4.3.0.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.encoding\\4.3.0\\system.security.cryptography.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.openssl\\4.3.0\\system.security.cryptography.openssl.4.3.0.nupkg.sha512",
-    "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.pkcs\\6.0.3\\system.security.cryptography.pkcs.6.0.3.nupkg.sha512",
+    "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.pkcs\\6.0.4\\system.security.cryptography.pkcs.6.0.4.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.primitives\\4.3.0\\system.security.cryptography.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.security.cryptography.x509certificates\\4.3.0\\system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",

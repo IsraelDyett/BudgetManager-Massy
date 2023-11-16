@@ -10,6 +10,8 @@ using ExcelDataReader;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
+using OfficeOpenXml;
+using System.ComponentModel;
 
 namespace BudgetManager.Controllers
 {
@@ -17,13 +19,13 @@ namespace BudgetManager.Controllers
     [Authorize]
     public class BudgetsController : Controller
     {
-        private  ApplicationDbContext _context;
+        private ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
 
-        public BudgetsController(ApplicationDbContext context,   IConfiguration configuration)
+        public BudgetsController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
-           
+
             _configuration = configuration;
 
         }
@@ -83,7 +85,7 @@ namespace BudgetManager.Controllers
 
             return View(budget);
         }
-        [Authorize (Roles = "SuperAdmin,Admin,Master")]
+        [Authorize(Roles = "SuperAdmin,Admin,Master")]
         // GET: Budgets/Create
         public IActionResult Create()
         {
@@ -153,7 +155,7 @@ namespace BudgetManager.Controllers
             {
                 try
                 {
-                   // budget.SuggestedChanges = "inital";
+                    // budget.SuggestedChanges = "inital";
                     budget.Accepted = null;
                     _context.Update(budget);
                     await _context.SaveChangesAsync();
@@ -207,7 +209,7 @@ namespace BudgetManager.Controllers
             {
                 _context.Budget.Remove(budget);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -227,7 +229,7 @@ namespace BudgetManager.Controllers
                 using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
                 {
                     var records = csv.GetRecords<BudgetTemp>().ToList();
-                    
+
                     List<Budget> budgetList = new List<Budget>();
                     foreach (var record in records)
                     {
@@ -238,7 +240,7 @@ namespace BudgetManager.Controllers
                         budget.StoreName = record.StoreName;
                         budget.DeptName = record.DeptName;
                         budget.DeptNo = record.DeptNo;
-                        budget.Month= record.Month;
+                        budget.Month = record.Month;
                         budget.MonthNo = record.MonthNo;
                         budget.OperationalDays = record.OperationalDays;
                         budget.Week1 = record.Week1;
@@ -248,16 +250,16 @@ namespace BudgetManager.Controllers
                         budget.Week5 = record.Week5;
                         budget.Week6 = record.Week6;
                         budget.DailyGPP = record.DailyGPP;
-                        budget.TotalGPP_AC= record.TotalGPP_AC;
+                        budget.TotalGPP_AC = record.TotalGPP_AC;
                         budget.TotalGPP_YRAC = record.TotalGPP_YRAC;
                         budget.TotalGPP_BC = record.TotalGPP_BC;
-                        budget.TotalGPP_YRBC=record.TotalGPP_YRBC;
-                        budget.DailyGP= record.DailyGP;
-                        budget.DailySales= record.DailySales;
+                        budget.TotalGPP_YRBC = record.TotalGPP_YRBC;
+                        budget.DailyGP = record.DailyGP;
+                        budget.DailySales = record.DailySales;
                         budget.Week1GP = record.Week1GP;
-                        budget.Week2GP = record.Week2GP; 
+                        budget.Week2GP = record.Week2GP;
                         budget.Week3GP = record.Week3GP;
-                        budget.Week4GP = record.Week4GP; 
+                        budget.Week4GP = record.Week4GP;
                         budget.Week5GP = record.Week5GP;
                         budget.Week6GP = record.Week6GP;
                         budget.Week1Sales = record.Week1Sales;
@@ -272,7 +274,7 @@ namespace BudgetManager.Controllers
                         budget.Accepted = null;
                         budgetList.Add(budget);
 
-                       // budget.BudgetID = 0; // You can also set it to null if it's configured as nullable in your model
+                        // budget.BudgetID = 0; // You can also set it to null if it's configured as nullable in your model
                     }
                     //  _context.Budget.AddRange(budgetList);
                     //  _context.SaveChanges();
@@ -342,7 +344,7 @@ namespace BudgetManager.Controllers
 
         private bool BudgetExists(int id)
         {
-          return (_context.Budget?.Any(e => e.BudgetID == id)).GetValueOrDefault();
+            return (_context.Budget?.Any(e => e.BudgetID == id)).GetValueOrDefault();
         }
 
 
@@ -373,20 +375,19 @@ namespace BudgetManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SuggestBudgetChanges(int id, Budget budget)
         {
-            using (var context = _context)
-            {
-                var existingBudget = context.Budget.FirstOrDefault(b => b.BudgetID == id);
+            
+                var existingBudget = _context.Budget.FirstOrDefault(b => b.BudgetID == id);
 
-                if (existingBudget != null) 
+                if (existingBudget != null)
                 {
                     existingBudget.SuggestedChanges = budget.SuggestedChanges;
-                    existingBudget.Accepted = false; 
+                    existingBudget.Accepted = false;
                     _context.Update(existingBudget);
                 }
-               
+
                 await _context.SaveChangesAsync();
 
-            }
+            
             return await GetUnApproved();
         }
 
@@ -449,7 +450,7 @@ namespace BudgetManager.Controllers
             ViewBag.FlaggedBudgetCount = flaggedCount;
 
             // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
-            var flaggedBudgets = _context.Budget.Where(b => b.Accepted ==false).ToList();
+            var flaggedBudgets = _context.Budget.Where(b => b.Accepted == false).ToList();
 
             return View("Index", flaggedBudgets);
         }
@@ -457,21 +458,94 @@ namespace BudgetManager.Controllers
         [HttpPost]
         public async Task<IActionResult> GetUnApproved()
         {
+            var flaggedBudgets = new List<Budget>();
+            if (_context.Budget != null)
+            {
+                int approvedCount = _context.Budget.Count(b => b.Accepted == true);
+                int unApprovedCount = _context.Budget.Count(b => b.Accepted == null);
+                int flaggedCount = _context.Budget.Count(b => b.Accepted == false); 
 
-            int approvedCount = _context.Budget.Count(b => b.Accepted == true);
-            int unApprovedCount = _context.Budget.Count(b => b.Accepted == null);
-            int flaggedCount = _context.Budget.Count(b => b.Accepted == false);
+                ViewBag.ApprovedBudgetCount = approvedCount;
+                ViewBag.UnApprovedBudgetCount = unApprovedCount;
+                ViewBag.FlaggedBudgetCount = flaggedCount;
 
-            // Pass the counts to the view
-            ViewBag.ApprovedBudgetCount = approvedCount;
-            ViewBag.UnApprovedBudgetCount = unApprovedCount;
-            ViewBag.FlaggedBudgetCount = flaggedCount;
+                flaggedBudgets = await _context.Budget.Where(b => b.Accepted != true && b.Accepted != false).ToListAsync();
+            }
+          
+            return  View("Index", flaggedBudgets);  
 
-            // Select the budgets from the Budget table where the BudgetID is in the list of flagged IDs
-            var flaggedBudgets = _context.Budget.Where(b => b.Accepted == null).ToList();
-
-            return View("Index", flaggedBudgets);
         }
+
+
+        public IActionResult ExportToExcel()
+        {
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            var budgets = _context.Budget.ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Budgets");
+
+                // Add column headers
+                int col = 1;
+                foreach (var property in typeof(Budget).GetProperties())
+                {
+                    if((col != 1)  && (col !=39) && (col != 38)) { 
+                        worksheet.Cells[1, col].Value = property.Name;
+                    }
+                    col++;
+                }
+
+                // Add data rows
+                int row = 2;
+                foreach (var budget in budgets)
+                {
+                    col = 1;
+                    foreach (var property in typeof(Budget).GetProperties())
+                    {
+                        if ((col != 1) && (col != 39) && (col != 38))
+                        {
+                            worksheet.Cells[row, col].Value = property.GetValue(budget);
+                        }
+                        col++;
+                    }
+                    row++;
+                }
+
+                // Save the Excel package
+                var content = package.GetAsByteArray();
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "BudgetsExport.xlsx";
+
+                return File(content, contentType, fileName);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ApproveSelectedBudgets(string SelectedBudgets)
+        {
+            List<int> selectedBudgets = SelectedBudgets.Split(',').Select(int.Parse).ToList();
+            // Retrieve the selected budgets
+            var budgetsToApprove = _context.Budget.Where(b => selectedBudgets.Contains(b.BudgetID)).ToList();
+
+            // Update the budgets
+            foreach (var budget in budgetsToApprove)
+            {
+                budget.Accepted = true;
+                budget.SuggestedChanges = null;
+            }
+            _context.Budget.UpdateRange(budgetsToApprove);
+            // Save the changes
+            _context.SaveChanges();
+
+            // Redirect to the Index view
+            return RedirectToAction("Index");
+        }
+
+
+
 
     }
 }
