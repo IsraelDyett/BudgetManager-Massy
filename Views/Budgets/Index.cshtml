@@ -32,7 +32,11 @@
         $('#approveSelectedButton').click(function () {
             updateSelectedBudgetsInput();
         }); 
-        
+
+        $('#flagSelectedButton').click(function () {
+            updateSelectedBudgetsInput_Flag();
+        });
+
         $('#selectAllCheckbox').click(function () {
             var isChecked = $(this).prop('checked');
 
@@ -41,7 +45,13 @@
 
         });
 
+        $('#editSelectedButton').click(function () {
+            updateSelectedBudgetsInput_Edit();
+        });
 
+        $('#SelectedBudgetsForExport').click(function () {
+            exportSelectedBudgets();
+        });
     });
 
     function updateSelectedBudgetsInput() {
@@ -64,6 +74,54 @@
         // Submit the form
         $('#approveBudgetsForm').submit();
     }
+
+    function updateSelectedBudgetsInput_Flag() {
+        var selectedBudgetIds = [];
+        $('tbody tr.selected').each(function () {
+            // Extract the BudgetID from the data attribute
+            var budgetID = $(this).data('budget-id');
+            selectedBudgetIds.push(budgetID);
+        });
+
+        // Log the selected budget IDs for debugging
+        console.log("Selected Budget IDs: ", selectedBudgetIds);
+
+        // Update the value of the hidden input with the selected budget IDs
+        $('#SelectedBudgets').val(selectedBudgetIds.join(','));
+
+        // Log the form data for debugging
+        console.log("Form Data: ", $('#flagBudgetsForm').serialize());
+
+        // Submit the form
+        $('#flagBudgetsForm').submit();
+    }
+
+    function updateSelectedBudgetsInput_Edit() {
+        var selectedBudgetIds = [];
+        $('tbody tr.selected').each(function () {
+            // Extract the BudgetID from the data attribute
+            var budgetID = $(this).data('budget-id');
+            selectedBudgetIds.push(budgetID);
+        });
+
+        // Log the selected budget IDs for debugging
+        console.log("Selected Budget IDs for Edit: ", selectedBudgetIds);
+
+        // Redirect to the EditBudgets action with the selected budget IDs
+        window.location.href = '/Budgets/EditBudgets?SelectedBudgets=' + selectedBudgetIds.join(',');
+
+     
+    }   
+    function exportSelectedBudgets() {
+            // Get the selected budget IDs
+            var selectedBudgetIds = [];
+            $('tbody tr.selected').each(function () {
+                var budgetID = $(this).data('budget-id');
+                selectedBudgetIds.push(budgetID);
+            });
+
+        window.location.href = '/Budgets/ExportToExcel?SelectedBudgets=' + selectedBudgetIds.join(',');
+        }
 </script>
 
 
@@ -75,7 +133,7 @@
         <p>
         @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
         {
-                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create Budget</button>
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Create")'">Create Budget</button>
                 <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Upload")'">Upload Budget</button>
 
                 <form asp-action="GetAcceptedBudgets" style="margin-left: 5px">
@@ -134,17 +192,42 @@
 </div>
 <br />
 <br />
-
-<button type="button" id="approveSelectedButton" class="btn btn-primary">Approve Selected Budgets</button>
-<br/>
-<br />
-<input type="checkbox" id="selectAllCheckbox" style="background-color:blue; padding:5px" /> SELECT ALL
-
+<div style="display:flex; margin: 7px;">
+    <input type="checkbox" id="selectAllCheckbox" style="background-color:blue; padding:5px" /> <label>SELECT ALL</label>
+</div>
 <br>
 <br>
-<a href="@Url.Action("ExportToExcel")" class="btn btn-info">Export to Excel</a>
+<div style="display:flex">
+  <div stype="display: flex">
+      @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+          {
+            <button type="button" id="approveSelectedButton" class="btn btn-primary">Approve Selected Budgets</button>
+           @*  <button type="button" id="flagSelectedButton" class="btn btn-primary">Flag Selected Budgets</button> *@
+
+       
+      }
+        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Master"))
+        {
+        // ... other buttons
+        
+            <button type="button" id="editSelectedButton" class="btn btn-primary">Edit Selected Budgets</button>
+        
+        }
+</div>
+
+
+
+<button type="button" id="SelectedBudgetsForExport" class="btn btn-secondary" style="margin-left:5px">Export Selected Budgets</button>
+</div>
+
 <form asp-controller="Budgets" asp-action="ApproveSelectedBudgets" method="post" id="approveBudgetsForm">
     <input type="hidden" id="SelectedBudgets" name="SelectedBudgets" />
+</form>
+
+@* <form asp-controller="Budgets" asp-action="flagSelectedBudgets" method="post" id="flagBudgetsForm">
+    <input type="hidden" id="SelectedBudgets" name="SelectedBudgets" />
+</form> *@
+
 <table class="table table-custom">
     <thead>
         <tr>
@@ -407,6 +490,3 @@
 }
     </tbody>
  </table>
-</form>
-
-

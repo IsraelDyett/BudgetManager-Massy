@@ -282,6 +282,10 @@ namespace BudgetManager.Controllers
 
                 }
             }
+            else
+            {
+                ViewData["File Upload Error"] = "Please Select A CSV File To Upload.";
+            }
 
             return RedirectToAction("Index");
         }
@@ -304,14 +308,51 @@ namespace BudgetManager.Controllers
 
                         if (existingBudget != null)
                         {
-
-                            continue;
+                            existingBudget.FinYr = budget.FinYr;
+                            existingBudget.Yr = budget.Yr;
+                            existingBudget.StoreNo = budget.StoreNo;
+                            existingBudget.StoreName = budget.StoreName;
+                            existingBudget.DeptName = budget.DeptName;
+                            existingBudget.DeptNo = budget.DeptNo;
+                            existingBudget.Month = budget.Month;
+                            existingBudget.MonthNo = budget.MonthNo;
+                            existingBudget.OperationalDays = budget.OperationalDays;
+                            existingBudget.Week1 = budget.Week1;
+                            existingBudget.Week2 = budget.Week2;
+                            existingBudget.Week3 = budget.Week3;
+                            existingBudget.Week4 = budget.Week4;
+                            existingBudget.Week5 = budget.Week5;
+                            existingBudget.Week6 = budget.Week6;
+                            existingBudget.DailyGPP = budget.DailyGPP;
+                            existingBudget.TotalGPP_AC = budget.TotalGPP_AC;
+                            existingBudget.TotalGPP_YRAC = budget.TotalGPP_YRAC;
+                            existingBudget.TotalGPP_BC = budget.TotalGPP_BC;
+                            existingBudget.TotalGPP_YRBC = budget.TotalGPP_YRBC;
+                            existingBudget.DailyGP = budget.DailyGP;
+                            existingBudget.DailySales = budget.DailySales;
+                            existingBudget.Week1GP = budget.Week1GP;
+                            existingBudget.Week2GP = budget.Week2GP;
+                            existingBudget.Week3GP = budget.Week3GP;
+                            existingBudget.Week4GP = budget.Week4GP;
+                            existingBudget.Week5GP = budget.Week5GP;
+                            existingBudget.Week6GP = budget.Week6GP;
+                            existingBudget.Week1Sales = budget.Week1Sales;
+                            existingBudget.Week2Sales = budget.Week2Sales;
+                            existingBudget.Week3Sales = budget.Week3Sales;
+                            existingBudget.Week4Sales = budget.Week4Sales;
+                            existingBudget.Week5Sales = budget.Week5Sales;
+                            existingBudget.Week6Sales = budget.Week6Sales;
+                            existingBudget.MonthGP = budget.MonthGP;
+                            existingBudget.MonthSales = budget.MonthSales;
+                            existingBudget.SuggestedChanges = null;
+                            existingBudget.Accepted = null;
+                            
+                            _context.Update(existingBudget);
                         }
                         else
-                        {
+                        {  
                             _context.Add(budget);
                         }
-
 
                     }
 
@@ -321,7 +362,9 @@ namespace BudgetManager.Controllers
                     }
                     catch
                     {
-                        return View("CSVFileError");
+                        
+                        ViewData["Duplicate Error"] = "There Are Duplicates Budgets Present. Please Adjust The Values Accondingly Before Saving.";
+                        
                     }
                 }
                 catch (DbUpdateConcurrencyException)
@@ -476,13 +519,15 @@ namespace BudgetManager.Controllers
 
         }
 
-
-        public IActionResult ExportToExcel()
+        public IActionResult ExportToExcel(string selectedBudgets)
         {
-
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-
-            var budgets = _context.Budget.ToList();
+           if(selectedBudgets != null) { 
+            // Parse the selected budget IDs from the comma-separated string
+            var selectedBudgetIds = selectedBudgets.Split(',').Select(int.Parse).ToList();
+            
+            // Filter budgets based on selected IDs
+            var budgets = _context.Budget.Where(b => selectedBudgetIds.Contains(b.BudgetID)).ToList();
 
             using (var package = new ExcelPackage())
             {
@@ -492,7 +537,8 @@ namespace BudgetManager.Controllers
                 int col = 1;
                 foreach (var property in typeof(Budget).GetProperties())
                 {
-                    if((col != 1)  && (col !=39) && (col != 38)) { 
+                    if ((col != 1) && (col != 39) && (col != 38))
+                    {
                         worksheet.Cells[1, col].Value = property.Name;
                     }
                     col++;
@@ -517,35 +563,76 @@ namespace BudgetManager.Controllers
                 // Save the Excel package
                 var content = package.GetAsByteArray();
                 var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                var fileName = "BudgetsExport.xlsx";
+                var fileName = "SelectedBudgetsExport.xlsx";
 
                 return File(content, contentType, fileName);
             }
+            
+            }
+            return RedirectToAction("Index", "Home");
         }
+
+
+
 
         [HttpPost]
         public IActionResult ApproveSelectedBudgets(string SelectedBudgets)
         {
-            List<int> selectedBudgets = SelectedBudgets.Split(',').Select(int.Parse).ToList();
-            // Retrieve the selected budgets
-            var budgetsToApprove = _context.Budget.Where(b => selectedBudgets.Contains(b.BudgetID)).ToList();
+            if(SelectedBudgets != null) {
+                List<int> selectedBudgets = SelectedBudgets.Split(',').Select(int.Parse).ToList();
+                // Retrieve the selected budgets
+                var budgetsToApprove = _context.Budget.Where(b => selectedBudgets.Contains(b.BudgetID)).ToList();
 
-            // Update the budgets
-            foreach (var budget in budgetsToApprove)
-            {
-                budget.Accepted = true;
-                budget.SuggestedChanges = null;
-            }
-            _context.Budget.UpdateRange(budgetsToApprove);
-            // Save the changes
-            _context.SaveChanges();
-
-            // Redirect to the Index view
+                // Update the budgets
+                foreach (var budget in budgetsToApprove)
+                {
+                    budget.Accepted = true;
+                    budget.SuggestedChanges = null;
+                }
+                _context.Budget.UpdateRange(budgetsToApprove);
+                // Save the changes
+                _context.SaveChanges();
+             }
+                // Redirect to the Index view
             return RedirectToAction("Index");
         }
 
 
+        public IActionResult FlagSelectedBudgets(string SelectedBudgets)
+        {
+            if (SelectedBudgets != null) { 
+                List<int> selectedBudgets = SelectedBudgets.Split(',').Select(int.Parse).ToList();
+                // Retrieve the selected budgets
+                var budgetsToApprove = _context.Budget.Where(b => selectedBudgets.Contains(b.BudgetID)).ToList();
 
+                // Update the budgets
+                foreach (var budget in budgetsToApprove)
+                {
+                    budget.Accepted = false;
+                    budget.SuggestedChanges = "Double check the values in this budget.";
+
+                }
+                _context.Budget.UpdateRange(budgetsToApprove);
+                // Save the changes
+                _context.SaveChanges();
+                }
+            // Redirect to the Index view
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditBudgets(string SelectedBudgets)
+        {
+            if (SelectedBudgets != null)
+            {
+                List<int> selectedBudgets = SelectedBudgets.Split(',').Select(int.Parse).ToList();
+                // Retrieve the selected budgets
+                var budgetList = _context.Budget.Where(b => selectedBudgets.Contains(b.BudgetID)).ToList();
+                return View("PreviewEditable", budgetList);
+                
+            }
+            // Redirect to the Index view
+            return RedirectToAction("Index");
+        }
 
     }
 }

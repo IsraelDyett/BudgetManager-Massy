@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rglmOsQDxb/bc98x/U536R8qgCyg6Yoc/aJNo3e/tgA=",
+  "Hash": "W037dIoWSDU4sIocOTjiKLxyvezktB8mB6AT4/Fj6Cc=",
   "Source": "BudgetManager",
   "BasePath": "_content/BudgetManager",
   "Mode": "Default",
@@ -83,6 +83,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\Massy2-1200x800.jpg"
+    },
+    {
+      "Identity": "C:\\DevelopmentApps\\budgetManager\\wwwroot\\assets\\Screenshot 2023-11-17 121546.png",
+      "SourceId": "BudgetManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DevelopmentApps\\budgetManager\\wwwroot\\",
+      "BasePath": "_content/BudgetManager",
+      "RelativePath": "assets/Screenshot 2023-11-17 121546.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\Screenshot 2023-11-17 121546.png"
+    },
+    {
+      "Identity": "C:\\DevelopmentApps\\budgetManager\\wwwroot\\assets\\Screenshot 2023-11-17 122145.png",
+      "SourceId": "BudgetManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DevelopmentApps\\budgetManager\\wwwroot\\",
+      "BasePath": "_content/BudgetManager",
+      "RelativePath": "assets/Screenshot 2023-11-17 122145.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\Screenshot 2023-11-17 122145.png"
     },
     {
       "Identity": "C:\\DevelopmentApps\\budgetManager\\wwwroot\\css\\site.css",

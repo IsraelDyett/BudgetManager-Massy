@@ -1,4 +1,27 @@
-﻿<form asp-action="Upload" asp-controller="Budgets" method="post" enctype="multipart/form-data">
+﻿
+@if (ViewData["FileUploadError"] != null)
+
+{
+
+    <div class="alert alert-danger" role="alert">
+
+        @ViewData["FileUploadError"]
+
+    </div>
+
+}
+
+<form asp-action="Upload" asp-controller="Budgets" method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
     <input type="submit" value="Upload" />
 </form>
+<br />
+<br />
+<br />
+<h3 style="display:flex; align-content: center; justify-content:center;">PLEASE UPLOAD THE FILE IN THE FOLLOWING CSV FORMAT</h3>
+<br />
+<br />
+<div class="row">
+    <img src="~/assets/Screenshot 2023-11-17 122145.png" style="display:flex; align-content: center; justify-content:center; margin:30px; max-width:100%; height:auto" />
+</div>
+
