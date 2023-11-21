@@ -48,13 +48,17 @@
                     </div>
                  </td>
                  <td>
-                    <form method="post" asp-controller="Admin" asp-action="RemoveRole">
-                        <input type="hidden" name="userId" value="@userWithRoles.UserId" />
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
-                            Delete User
-                        </button>
-                    </form>
-                 </td>
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+
+                        <form method="post" asp-controller="Admin" asp-action="RemoveRole">
+                            <input type="hidden" name="userId" value="@userWithRoles.UserId" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
+                                Delete User
+                            </button>
+                        </form>
+                    }
+                </td>
                         
                     
             </tr>

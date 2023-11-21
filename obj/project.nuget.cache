@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bCh91TCDLR1y42+vUSVuXtEZYAh3jJv3zwZXibDEWex+ijvJueX+naJQpwt7pxFoXpBqUKto05PWFY9n3MFnbg==",
+  "dgSpecHash": "O0j2eG8tsiwj+AM+b+7eBfDoX/cvaui/umMGS2/uARugPLxK/oPdO5loPOODe3AlfRoTr19MRFJbWbOpVZz/vA==",
   "success": true,
   "projectFilePath": "C:\\DevelopmentApps\\budgetManager\\BudgetManager.csproj",
   "expectedPackageFiles": [
@@ -270,10 +270,10 @@
     "C:\\Users\\idyette\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\idyette\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.24\\microsoft.windowsdesktop.app.ref.6.0.24.nupkg.sha512",
-    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.24\\microsoft.netcore.app.ref.6.0.24.nupkg.sha512",
-    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.24\\microsoft.aspnetcore.app.ref.6.0.24.nupkg.sha512",
-    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.24\\microsoft.netcore.app.host.win-x64.6.0.24.nupkg.sha512"
+    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\idyette\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
   ],
   "logs": []
 }
