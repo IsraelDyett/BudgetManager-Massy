@@ -291,7 +291,7 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveToDatabase(List<Budget> budgets)
+        public async Task<IActionResult> SaveToDatabase(List<Budget> budgets) 
         {
             if (ModelState.IsValid)
             {

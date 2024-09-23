@@ -6,11 +6,15 @@ namespace BudgetManager.Models
     {
         [Key]
         public int ActionLogId { get; set; }
-        public TimeSpan Duration {  get; set; }
+        public string User { get; set; }
         public string Controller { get; set; }
-        public string Action {  get; set; }
+        public string? ActionType { get; set; }
+        public string? Action {  get; set; }
+        public string? DoneOn { get; set; }
+        public string? Field { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string UserId { get; set; }
+        public TimeSpan Duration {  get; set; }
+        
         
 
         public ActionLog() { }
